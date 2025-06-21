@@ -18,6 +18,8 @@ function AddComment({ onAddComment, bookKey, currentComment }) {
     <>
       <p>You can leave a comment regarding this book: </p>
       <textarea
+        name="book-comment"
+        id="book-comment"
         rows="5"
         cols="33"
         value={comment}

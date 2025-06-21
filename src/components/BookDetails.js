@@ -2,6 +2,34 @@ import { useEffect, useState } from "react";
 import Loader from "./Loader";
 import StarRating from "./StarRating";
 import AddComment from "./AddComment";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
+
+const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
+  color: var(--clr-1);
+`;
+
+const StyledButton = styled.button`
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  height: 4.2rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: none;
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+  font-family: sans-serif;
+  font-size: 2.4rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 function BookDetails({
   book,
@@ -72,9 +100,9 @@ function BookDetails({
       ) : (
         <>
           <header>
-            <button className="btn-back" onClick={onCloseBook}>
-              &larr;
-            </button>
+            <StyledButton className="btn-back" onClick={onCloseBook}>
+              <StyledFontAwesomeIcon icon={faArrowLeft} />
+            </StyledButton>
             <img
               className="book-details-image"
               src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}

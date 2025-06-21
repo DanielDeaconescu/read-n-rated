@@ -1,11 +1,17 @@
+import { faBook } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 function ReadSummary({ read }) {
+  console.log(read);
   return (
     <div className="summary">
       <h2>Books you've read</h2>
       <div>
         <p>
-          <span>#️⃣</span>
-          <span>{read.length} books</span>
+          <FontAwesomeIcon icon={faBook} />
+          <span>
+            {read.length === 1 ? `${read.length} book` : `${read.length} books`}
+          </span>
         </p>
       </div>
     </div>
