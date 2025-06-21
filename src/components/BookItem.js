@@ -1,6 +1,6 @@
 function BookItem({ book, onSelectedBook }) {
   return (
-    <li onClick={() => onSelectedBook(book)}>
+    <li key={book.cover_i} onClick={() => onSelectedBook(book)}>
       <img
         src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
         alt={`${book.title} poster`}

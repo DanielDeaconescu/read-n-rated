@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 function AddComment({ onAddComment, bookKey, currentComment }) {
   const [comment, setComment] = useState("");
+
+  // whenever the comment changes, we want to change the "currentComment" as well
   useEffect(() => {
     setComment(currentComment);
   }, [currentComment]);
@@ -13,12 +15,15 @@ function AddComment({ onAddComment, bookKey, currentComment }) {
   }
 
   return (
-    <textarea
-      rows="5"
-      cols="33"
-      value={comment}
-      onChange={(e) => handleCommentChange(e.target.value)}
-    ></textarea>
+    <>
+      <p>You can leave a comment regarding this book: </p>
+      <textarea
+        rows="5"
+        cols="33"
+        value={comment}
+        onChange={(e) => handleCommentChange(e.target.value)}
+      ></textarea>
+    </>
   );
 }
 

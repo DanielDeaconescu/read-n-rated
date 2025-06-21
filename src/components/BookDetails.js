@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Loader from "./Loader";
-import StarRating from "../StarRating";
+import StarRating from "./StarRating";
 import AddComment from "./AddComment";
 
 function BookDetails({
@@ -14,7 +14,6 @@ function BookDetails({
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
-  const [userComment, setUserComment] = useState("");
 
   const isRead = read.map((b) => b.key).includes(book.key);
   const readUserRating = read.find((b) => b.key === book.key)?.userRating;
@@ -27,13 +26,10 @@ function BookDetails({
       title,
       coverImage: `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`,
       userRating,
-      userComment,
     };
-    console.log(newReadBook);
 
     onAddRead(newReadBook);
     onCloseBook();
-    // onHandleComment("");
   }
 
   // fetch a single book based on an ID
@@ -116,9 +112,18 @@ function BookDetails({
                 </>
               ) : (
                 <p>
-                  You rated this book {readUserRating}
-                  <span>⭐</span>
-                  You added the comment: {userComment}
+                  {readUserRating ? (
+                    <div>You rated this book {readUserRating}⭐ </div>
+                  ) : (
+                    <div>You didn't rate this book</div>
+                  )}
+                  {currentComment ? (
+                    <div>
+                      You added the comment: <b>{currentComment}</b>.
+                    </div>
+                  ) : (
+                    <div>You didn't add any comments.</div>
+                  )}
                 </p>
               )}
             </div>

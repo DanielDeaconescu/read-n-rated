@@ -47,26 +47,29 @@ export default function StarRating({
   };
 
   return (
-    <div style={containerStyle} className={className}>
-      <div style={starContainerStyle}>
-        {Array.from({ length: maxRating }, (_, i) => (
-          <Star
-            key={i}
-            full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
-            onRate={() => handleRating(i + 1)}
-            onHoverIn={() => setTempRating(i + 1)}
-            onHoverOut={() => setTempRating(0)}
-            color={color}
-            size={size}
-          />
-        ))}
+    <>
+      <p>You can rate this book on a scale from 1 to 10: </p>
+      <div style={containerStyle} className={className}>
+        <div style={starContainerStyle}>
+          {Array.from({ length: maxRating }, (_, i) => (
+            <Star
+              key={i}
+              full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
+              onRate={() => handleRating(i + 1)}
+              onHoverIn={() => setTempRating(i + 1)}
+              onHoverOut={() => setTempRating(0)}
+              color={color}
+              size={size}
+            />
+          ))}
+        </div>
+        <p style={textStyle}>
+          {messages.length === maxRating
+            ? messages[tempRating ? tempRating - 1 : rating - 1]
+            : tempRating || rating || ""}
+        </p>
       </div>
-      <p style={textStyle}>
-        {messages.length === maxRating
-          ? messages[tempRating ? tempRating - 1 : rating - 1]
-          : tempRating || rating || ""}
-      </p>
-    </div>
+    </>
   );
 }
 
