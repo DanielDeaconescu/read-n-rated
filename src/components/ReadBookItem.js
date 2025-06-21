@@ -1,4 +1,4 @@
-function ReadBookItem({ book, onDeleteRead }) {
+function ReadBookItem({ book, onDeleteRead, comments }) {
   return (
     <li>
       <img src={book.coverImage} alt={`${book.title} poster`} />
@@ -8,7 +8,7 @@ function ReadBookItem({ book, onDeleteRead }) {
           <span>⭐️</span>
           <span>{book.userRating}</span>
         </p>
-
+        <p>{comments[book.key]}</p>
         <button className="btn-delete" onClick={() => onDeleteRead(book.key)}>
           X
         </button>

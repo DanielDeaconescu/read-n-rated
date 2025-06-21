@@ -21,6 +21,11 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [selectedBook, setSelectedBook] = useState(null);
+  const [comments, setComments] = useState({});
+
+  function handleAddComment(key, comment) {
+    setComments((prev) => ({ ...prev, [key]: comment }));
+  }
 
   function handleSelectedBook(book) {
     setSelectedBook((selected) => (selected?.key === book.key ? null : book));
@@ -107,11 +112,17 @@ export default function App() {
               onCloseBook={handleCloseBook}
               onAddRead={handleAddRead}
               read={read}
+              onAddComment={handleAddComment}
+              currentComment={comments[selectedBook.key] || ""}
             />
           ) : (
             <>
               <ReadSummary read={read} />
-              <ReadBooksList read={read} onDeleteRead={handleDeleteRead} />
+              <ReadBooksList
+                read={read}
+                onDeleteRead={handleDeleteRead}
+                comments={comments}
+              />
             </>
           )}
         </BoxDetails>

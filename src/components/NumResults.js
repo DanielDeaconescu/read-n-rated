@@ -1,7 +1,7 @@
 function NumResults({ books }) {
   return (
     <p className="num-results">
-      Found <strong>{books.length}</strong> results
+      <strong>{books.length}</strong> results
     </p>
   );
 }

@@ -1,16 +1,25 @@
 import { useEffect, useState } from "react";
 import Loader from "./Loader";
 import StarRating from "../StarRating";
+import AddComment from "./AddComment";
 
-function BookDetails({ book, onCloseBook, onAddRead, read }) {
+function BookDetails({
+  book,
+  onCloseBook,
+  onAddRead,
+  read,
+  currentComment,
+  onAddComment,
+}) {
   const [details, setDetails] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
+  const [userComment, setUserComment] = useState("");
 
   const isRead = read.map((b) => b.key).includes(book.key);
   const readUserRating = read.find((b) => b.key === book.key)?.userRating;
 
-  const { title } = book;
+  const { title, key: bookKey } = book;
 
   function handleAdd() {
     const newReadBook = {
@@ -18,10 +27,13 @@ function BookDetails({ book, onCloseBook, onAddRead, read }) {
       title,
       coverImage: `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`,
       userRating,
+      userComment,
     };
+    console.log(newReadBook);
 
     onAddRead(newReadBook);
     onCloseBook();
+    // onHandleComment("");
   }
 
   // fetch a single book based on an ID
@@ -88,21 +100,25 @@ function BookDetails({ book, onCloseBook, onAddRead, read }) {
             <div className="rating">
               {!isRead ? (
                 <>
+                  <AddComment
+                    onAddComment={onAddComment}
+                    currentComment={currentComment}
+                    bookKey={bookKey}
+                  />
                   <StarRating
                     maxRating={10}
                     size={24}
                     onSetRating={setUserRating}
                   />
-                  {userRating > 0 && (
-                    <button className="btn-add" onClick={handleAdd}>
-                      + Add to list
-                    </button>
-                  )}
+                  <button className="btn-add" onClick={handleAdd}>
+                    + Add to list
+                  </button>
                 </>
               ) : (
                 <p>
                   You rated this book {readUserRating}
                   <span>⭐</span>
+                  You added the comment: {userComment}
                 </p>
               )}
             </div>
