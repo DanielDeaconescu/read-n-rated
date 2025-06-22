@@ -1,15 +1,35 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 
 const containerStyle = {
   display: "flex",
   alignItems: "center",
+  justifyContent: "center",
   gap: "16px",
 };
 
 const starContainerStyle = {
   display: "flex",
 };
+
+const StyledText = styled.div`
+  @media (max-width: 576px) {
+    font-size: 1.2rem;
+  }
+`;
+
+const StyledRating = styled.div`
+  line-height: 1;
+  margin: 0;
+  font-size: 12px;
+`;
+
+const StyledSpan = styled.span`
+  @media (max-width: 576px) {
+    width: 16px !important;
+  }
+`;
 
 StarRating.propTypes = {
   maxRating: PropTypes.number,
@@ -39,16 +59,11 @@ export default function StarRating({
     onSetRating(rating);
   }
 
-  const textStyle = {
-    lineHeight: "1",
-    margin: "0",
-    color,
-    fontSize: `${size / 1.5}px`,
-  };
+  const textStyle = {};
 
   return (
     <>
-      <p>You can rate this book on a scale from 1 to 10: </p>
+      <StyledText>You can rate this book on a scale from 1 to 10: </StyledText>
       <div style={containerStyle} className={className}>
         <div style={starContainerStyle}>
           {Array.from({ length: maxRating }, (_, i) => (
@@ -63,11 +78,11 @@ export default function StarRating({
             />
           ))}
         </div>
-        <p style={textStyle}>
+        <StyledRating style={textStyle}>
           {messages.length === maxRating
             ? messages[tempRating ? tempRating - 1 : rating - 1]
             : tempRating || rating || ""}
-        </p>
+        </StyledRating>
       </div>
     </>
   );
@@ -82,7 +97,7 @@ function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
   };
 
   return (
-    <span
+    <StyledSpan
       onClick={onRate}
       role="button"
       style={starStyle}
@@ -113,7 +128,7 @@ function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
           />
         </svg>
       )}
-    </span>
+    </StyledSpan>
   );
 }
 

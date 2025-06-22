@@ -29,6 +29,81 @@ const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 576px) {
+    height: 3.2rem;
+  }
+`;
+
+const StyledHeader = styled.header`
+  display: flex;
+  padding: 1rem;
+  @media (max-width: 576px) {
+    flex-direction: column;
+    padding: 0;
+  }
+`;
+
+const StyledImg = styled.img`
+  @media (max-width: 576px) {
+    width: 60px;
+  }
+`;
+
+const StyledDetailsOverview = styled.div`
+  width: 100%;
+  padding: 2.4rem 3rem;
+  background-color: var(--color-background-100);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+
+  @media (max-width: 576px) {
+    padding: 0;
+    gap: 0;
+  }
+`;
+
+const DetailsOverviewH2 = styled.h2`
+  font-size: 2.4rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.1;
+
+  @media (max-width: 576px) {
+    font-size: 1.4rem;
+  }
+`;
+
+const StyledBy = styled.div``;
+
+const StyledSubjects = styled.div``;
+
+const StyledDetails = styled.div`
+  line-height: 1.4;
+  font-size: 1.4rem;
+  padding: 2rem;
+
+  @media (max-width: 576px) {
+    padding: 0.5rem;
+  }
+`;
+
+const StyledButtonAdd = styled.button`
+  background-color: var(--clr-2);
+  color: var(--color-text);
+  border: none;
+  border-radius: 10rem;
+  font-size: 1.4rem;
+  padding: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  @media (min-width: 576px) {
+    &:hover {
+      background-color: var(--clr-2-darker);
+    }
+  }
 `;
 
 function BookDetails({
@@ -94,31 +169,31 @@ function BookDetails({
   );
 
   return (
-    <div className="details">
+    <StyledDetails className="details">
       {isLoading ? (
         <Loader />
       ) : (
         <>
-          <header>
+          <StyledHeader>
             <StyledButton className="btn-back" onClick={onCloseBook}>
               <StyledFontAwesomeIcon icon={faArrowLeft} />
             </StyledButton>
-            <img
+            <StyledImg
               className="book-details-image"
               src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
               alt={`Cover of ${title} book`}
             />
-            <div className="details-overview">
-              <h2>{title}</h2>
-              <p>
+            <StyledDetailsOverview className="details-overview">
+              <DetailsOverviewH2>{title}</DetailsOverviewH2>
+              <StyledBy>
                 <strong>By:</strong> {book.author_name?.join(", ")}
-              </p>
-              <p>
+              </StyledBy>
+              <StyledSubjects>
                 <strong>Subjects:</strong>{" "}
                 {details.subjects?.slice(0, 3).join(", ")}
-              </p>
-            </div>
-          </header>
+              </StyledSubjects>
+            </StyledDetailsOverview>
+          </StyledHeader>
 
           <section>
             <div className="rating">
@@ -134,9 +209,9 @@ function BookDetails({
                     size={24}
                     onSetRating={setUserRating}
                   />
-                  <button className="btn-add" onClick={handleAdd}>
+                  <StyledButtonAdd className="btn-add" onClick={handleAdd}>
                     + Add to list
-                  </button>
+                  </StyledButtonAdd>
                 </>
               ) : (
                 <p>
@@ -158,7 +233,7 @@ function BookDetails({
           </section>
         </>
       )}
-    </div>
+    </StyledDetails>
   );
 }
 

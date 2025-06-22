@@ -1,5 +1,13 @@
+import styled from "styled-components";
+
+const StyledBox = styled.div`
+  @media (max-width: 576px) {
+    width: 150px;
+  }
+`;
+
 function Box({ children }) {
-  return <div className="box col-md-4">{children}</div>;
+  return <StyledBox className="box col-sm-4 col-md-4">{children}</StyledBox>;
 }
 
 export default Box;

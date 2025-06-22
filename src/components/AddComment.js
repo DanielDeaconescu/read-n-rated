@@ -1,4 +1,18 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+
+const StyledTextarea = styled.textarea`
+  @media (max-width: 576px) {
+    width: 100%;
+    height: 50px;
+  }
+`;
+
+const StyledText = styled.div`
+  @media (max-width: 576px) {
+    font-size: 1.2rem;
+  }
+`;
 
 function AddComment({ onAddComment, bookKey, currentComment }) {
   const [comment, setComment] = useState("");
@@ -16,15 +30,15 @@ function AddComment({ onAddComment, bookKey, currentComment }) {
 
   return (
     <>
-      <p>You can leave a comment regarding this book: </p>
-      <textarea
+      <StyledText>You can write a note regarding this book: </StyledText>
+      <StyledTextarea
         name="book-comment"
         id="book-comment"
         rows="5"
         cols="33"
         value={comment}
         onChange={(e) => handleCommentChange(e.target.value)}
-      ></textarea>
+      ></StyledTextarea>
     </>
   );
 }
