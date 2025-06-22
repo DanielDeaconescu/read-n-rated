@@ -68,7 +68,7 @@ body {
   border-radius: 0.9rem;
   position: relative;
   color: #fff;
-  height: 75vh;
+  /* height: 75vh; */
 }
 
 .loader {
@@ -225,18 +225,6 @@ body {
 }
 
 /* ******* */
-
-.details header {
-  /* display: flex;
-  padding: 1rem; */
-}
-
-.details section {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-}
 
 .details-overview p {
   display: flex;

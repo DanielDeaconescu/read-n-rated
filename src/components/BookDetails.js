@@ -35,10 +35,35 @@ const StyledButton = styled.button`
   }
 `;
 
+const StyledSection = styled.section`
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  @media (min-width: 576px) and (max-width: 768px) {
+    padding: 0;
+  }
+
+  @media (min-width: 768px) and (max-width: 992px) {
+    padding: 0;
+  }
+`;
+
 const StyledHeader = styled.header`
   display: flex;
   padding: 1rem;
   @media (max-width: 576px) {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  @media (min-width: 576px) and (max-width: 768px) {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  @media (min-width: 768px) and (max-width: 992px) {
     flex-direction: column;
     padding: 0;
   }
@@ -47,6 +72,14 @@ const StyledHeader = styled.header`
 const StyledImg = styled.img`
   @media (max-width: 576px) {
     width: 60px;
+  }
+
+  @media (min-width: 576px) and (max-width: 768px) {
+    width: 100px;
+  }
+
+  @media (min-width: 768px) and (max-width: 992px) {
+    width: 120px;
   }
 `;
 
@@ -59,6 +92,16 @@ const StyledDetailsOverview = styled.div`
   gap: 1.4rem;
 
   @media (max-width: 576px) {
+    padding: 0;
+    gap: 0;
+  }
+
+  @media (min-width: 576px) and (max-width: 768px) {
+    padding: 0;
+    gap: 0;
+  }
+
+  @media (min-width: 768px) and (max-width: 992px) {
     padding: 0;
     gap: 0;
   }
@@ -195,7 +238,7 @@ function BookDetails({
             </StyledDetailsOverview>
           </StyledHeader>
 
-          <section>
+          <StyledSection>
             <div className="rating">
               {!isRead ? (
                 <>
@@ -230,7 +273,7 @@ function BookDetails({
                 </p>
               )}
             </div>
-          </section>
+          </StyledSection>
         </>
       )}
     </StyledDetails>
