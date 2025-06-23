@@ -1,7 +1,6 @@
 import ReadBookItem from "./ReadBookItem";
 
 function ReadBooksList({ read, onDeleteRead, comments }) {
-  console.log(read);
   return (
     <ul className="list">
       {read?.map((book) => (
