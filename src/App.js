@@ -37,7 +37,18 @@ export default function App() {
 
   function handleAddRead(book) {
     setRead((prevRead) => [...prevRead, book]);
+
+    let items = JSON.parse(localStorage.getItem("myArray")) || [];
+
+    items.push(book);
+
+    localStorage.setItem("myArray", JSON.stringify(items));
   }
+
+  useEffect(function () {
+    const myArray = localStorage.getItem("myArray");
+    // setRead(myArray);
+  }, []);
 
   function handleDeleteRead(id) {
     setRead((prevRead) => prevRead.filter((book) => book.key !== id));

@@ -20,7 +20,8 @@ function AddComment({ onAddComment, bookKey, currentComment }) {
   // whenever the comment changes, we want to change the "currentComment" as well
   useEffect(() => {
     setComment(currentComment);
-  }, [currentComment]);
+    // localStorage.setItem(`${bookKey}`, currentComment);
+  }, [currentComment, bookKey]);
 
   function handleCommentChange(newComment) {
     setComment(newComment);
