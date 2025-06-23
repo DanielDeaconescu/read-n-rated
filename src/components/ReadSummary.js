@@ -2,7 +2,6 @@ import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function ReadSummary({ read }) {
-  console.log(read);
   return (
     <div className="summary">
       <h2>Books you've read</h2>
