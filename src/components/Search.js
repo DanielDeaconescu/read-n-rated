@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import { useEffect, useRef } from "react";
 
 const StyledSearch = styled.div`
   display: flex;
@@ -28,15 +29,38 @@ const StyledInput = styled.input`
 `;
 
 function Search({ query, setQuery }) {
+  const input = useRef(null);
+
+  useEffect(
+    function () {
+      function callback(e) {
+        if (document.activeElement === input.current) return;
+
+        if (e.code === "Enter") {
+          input.current.focus();
+          setQuery("");
+        }
+      }
+
+      document.addEventListener("keydown", callback);
+
+      return () => document.addEventListener("keydown", callback);
+    },
+    [setQuery]
+  );
+
   return (
     <StyledSearch>
       <StyledFontAwesomeIcon icon={faMagnifyingGlass} />
       <StyledInput
         className="search"
+        id="search-books"
+        name="search-books"
         type="text"
         placeholder="Search books..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        ref={input}
       />
     </StyledSearch>
   );

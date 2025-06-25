@@ -17,7 +17,10 @@ import { useEffect, useState } from "react";
 export default function App() {
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState([]);
-  const [read, setRead] = useState([]);
+  const [read, setRead] = useState(function () {
+    const readBooks = JSON.parse(localStorage.getItem("readBooksArray"));
+    return readBooks;
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [selectedBook, setSelectedBook] = useState(null);
@@ -37,27 +40,18 @@ export default function App() {
 
   function handleAddRead(book) {
     setRead((prevRead) => [...prevRead, book]);
-
-    let items = JSON.parse(localStorage.getItem("myArray")) || [];
-
-    items.push(book);
-
-    localStorage.setItem("myArray", JSON.stringify(items));
   }
-
-  // set the read books array in localStorage
-  useEffect(function () {
-    const myArray = localStorage.getItem("myArray");
-    const myArrayParsed = myArray ? JSON.parse(myArray) : [];
-    setRead(myArrayParsed);
-  }, []);
 
   function handleDeleteRead(id) {
     setRead((prevRead) => prevRead.filter((book) => book.key !== id));
-    const myArray = JSON.parse(localStorage.getItem("myArray")) || [];
-    const updatedArray = myArray.filter((book) => book.key !== id);
-    localStorage.setItem("myArray", JSON.stringify(updatedArray));
   }
+
+  useEffect(
+    function () {
+      localStorage.setItem("readBooksArray", JSON.stringify(read));
+    },
+    [read]
+  );
 
   useEffect(
     function () {
