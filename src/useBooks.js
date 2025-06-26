@@ -47,7 +47,7 @@ export function useBooks(query, callback) {
         controller.abort();
       };
     },
-    [query]
+    [query, callback]
   );
 
   return { books, isLoading, error };
