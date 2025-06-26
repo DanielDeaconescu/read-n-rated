@@ -13,18 +13,20 @@ import ReadBooksList from "./components/ReadBooksList";
 import BookDetails from "./components/BookDetails";
 
 import { useEffect, useState } from "react";
+import { useBooks } from "./useBooks";
 
 export default function App() {
   const [query, setQuery] = useState("");
-  const [books, setBooks] = useState([]);
+
   const [read, setRead] = useState(function () {
     const readBooks = JSON.parse(localStorage.getItem("readBooksArray"));
     return readBooks;
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+
   const [selectedBook, setSelectedBook] = useState(null);
   const [comments, setComments] = useState({});
+
+  const { books, isLoading, error } = useBooks(query, handleCloseBook);
 
   function handleAddComment(key, comment) {
     setComments((prev) => ({ ...prev, [key]: comment }));
@@ -51,51 +53,6 @@ export default function App() {
       localStorage.setItem("readBooksArray", JSON.stringify(read));
     },
     [read]
-  );
-
-  useEffect(
-    function () {
-      const controller = new AbortController();
-
-      async function fetchBooks() {
-        try {
-          setIsLoading(true);
-          setError("");
-          const res = await fetch(
-            `https://openlibrary.org/search.json?q=${query}&limit=20`,
-            { signal: controller.signal }
-          );
-
-          if (!res.ok)
-            throw new Error("Something went wrong with fetching books");
-
-          const data = await res.json();
-
-          setBooks(data.docs);
-        } catch (err) {
-          if (err.name !== "AbortError") {
-            console.log(err.message);
-            setError(err.message);
-          }
-        } finally {
-          setIsLoading(false);
-        }
-      }
-
-      if (query.length < 3) {
-        setBooks([]);
-        setError("");
-        return;
-      }
-
-      handleCloseBook();
-      fetchBooks();
-
-      return function () {
-        controller.abort();
-      };
-    },
-    [query]
   );
 
   return (
