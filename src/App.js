@@ -26,7 +26,7 @@ export default function App() {
   const [selectedBook, setSelectedBook] = useState(null);
   const [comments, setComments] = useState({});
 
-  const { books, isLoading, error } = useBooks(query, handleCloseBook);
+  const { books, isLoading, error } = useBooks(query);
 
   function handleAddComment(key, comment) {
     setComments((prev) => ({ ...prev, [key]: comment }));

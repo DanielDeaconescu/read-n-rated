@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useBooks(query, callback) {
+export function useBooks(query) {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -8,7 +8,6 @@ export function useBooks(query, callback) {
   useEffect(
     function () {
       const controller = new AbortController();
-      callback?.();
       async function fetchBooks() {
         try {
           setIsLoading(true);
@@ -47,7 +46,7 @@ export function useBooks(query, callback) {
         controller.abort();
       };
     },
-    [query, callback]
+    [query]
   );
 
   return { books, isLoading, error };
